@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartel: Privacidad y Seguridad en Redes Sociales</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES DE COLOR --- */
+        :root {
+            --bg-body: #e2e8f0;
+            --primary: #1a365d; /* Azul oscuro - Seguridad */
+            --secondary: #e53e3e; /* Rojo - Alerta */
+            --accent: #3182ce; /* Azul claro - Acción */
+            --text-main: #2d3748;
+            --white: #ffffff;
+            --light-gray: #f7fafc;
+        }
+
+        /* --- ESTILOS BASE --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- CONTENEDOR DEL CARTEL (EL LIENZO) --- */
+        .poster {
+            background-color: var(--white);
+            max-width: 1200px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 40px;
+            position: relative;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* --- TARJETAS DE CONTENIDO (SECCIONES) --- */
+        .card {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 25px;
+            border-top: 5px solid var(--accent);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i {
+            color: var(--accent);
+        }
+
+        /* --- ESTILOS ESPECÍFICOS POR SECCIÓN --- */
+        
+        /* ¿Qué es la privacidad? (Ocupa 1 columna) */
+        .intro { grid-column: 1 / 2; }
+        
+        /* Riesgos (Ocupa 2 columnas) */
+        .risks { 
+            grid-column: 2 / 4; 
+            border-top-color: var(--secondary);
+        }
+        .risks h2 i { color: var(--secondary); }
+        .risks ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            list-style: none;
+        }
+        .risks li {
+            background: var(--white);
+            padding: 15px;
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .risks strong { color: var(--secondary); display: block; margin-bottom: 5px;}
+
+        /* Datos Impactantes */
+        .facts { border-top-color: #ed8936; } /* Naranja */
+        .facts h2 i { color: #ed8936; }
+        .facts ul { list-style: none; }
+        .facts li { margin-bottom: 15px; font-size: 0.95rem; }
+        .facts li::before {
+            content: "¡!";
+            color: #ed8936;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Cómo Protegerte */
+        .protect { border-top-color: #38a169; } /* Verde */
+        .protect h2 i { color: #38a169; }
+        .protect ul { list-style: none; }
+        .protect li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .protect li i { color: #38a169; margin-top: 4px; }
+
+        /* Consecuencias Legales */
+        .legal { border-top-color: #805ad5; } /* Morado */
+        .legal h2 i { color: #805ad5; }
+        .legal p { margin-bottom: 10px; font-size: 0.95rem;}
+        .legal strong { color: #805ad5; }
+
+        /* Caso de la vida real (Destacado, ocupa ahora las 3 columnas) */
+        .real-case {
+            grid-column: 1 / -1;
+            background-color: var(--primary);
+            color: var(--white);
+            border-top: none;
+            text-align: center;
+        }
+        .real-case h2 { color: var(--white); justify-content: center; }
+        .real-case h2 i { color: #fbd38d; }
+        .real-case p { font-size: 1.1rem; font-style: italic; opacity: 0.9; max-width: 900px; margin: 0 auto;}
+
+        /* --- FOOTER (REFERENCIAS) --- */
+        .footer {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #718096;
+        }
+        .footer h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+        .footer p { margin-bottom: 5px; }
+
+        /* --- RESPONSIVE DESIGN (Para móviles) --- */
+        @media (max-width: 900px) {
+            .poster { grid-template-columns: 1fr; padding: 20px; }
+            .intro, .risks, .real-case, .footer, .header { grid-column: 1 / -1; }
+            .risks ul { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="poster">
+        
+        <header class="header">
+            <h1>Tu Vida en un Clic</h1>
+            <p><i class="fa-solid fa-shield-halved"></i> Guía de Privacidad y Seguridad en Redes Sociales</p>
+        </header>
+
+        <section class="card intro">
+            <h2><i class="fa-solid fa-user-lock"></i> ¿Qué es la Privacidad?</h2>
+            <p>Es tu derecho fundamental a <strong>controlar cómo, cuándo y con quién compartes tu información</strong> en internet.</p><br>
+            <p>En redes sociales, significa decidir quién puede ver tu rostro, tus gustos, tu ubicación y evitar que terceros usen tus datos sin tu consentimiento.</p>
+        </section>
+
+        <section class="card risks">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> Riesgos de las Redes Sociales</h2>
+            <ul>
+                <li>
+                    <strong>Suplantación de Identidad</strong>
+                    Creación de perfiles falsos usando tu nombre y fotos para cometer fraudes.
+                </li>
+                <li>
+                    <strong>Phishing e Ingeniería Social</strong>
+                    Engaños para robar tus contraseñas o códigos mediante enlaces fraudulentos.
+                </li>
+                <li>
+                    <strong>Ciberacoso y Grooming</strong>
+                    Hostigamiento y acercamiento de adultos a menores mediante perfiles falsos.
+                </li>
+                <li>
+                    <strong>Sextorsión</strong>
+                    Chantajes de hacer públicas imágenes o videos íntimos si no se cumple una exigencia.
+                </li>
+            </ul>
+        </section>
+
+        <section class="card facts">
+            <h2><i class="fa-solid fa-chart-pie"></i> Datos Impactantes</h2>
+            <ul>
+                <li><strong>4 de cada 10 jóvenes</strong> han sufrido contacto mediante identidades falsas (INEGI, 2023).</li>
+                <li><strong>Facebook y WhatsApp</strong> concentran casi el 90% del ciberacoso y robo de cuentas.</li>
+                <li>El <strong>95%</strong> usa contraseñas, pero solo el <strong>27%</strong> actualiza su antivirus.</li>
+                <li>El cibercrimen cuesta al mundo hasta <strong>575,000 millones de dólares</strong> anuales.</li>
+            </ul>
+        </section>
+
+        <section class="card protect">
+            <h2><i class="fa-solid fa-user-shield"></i> ¿Cómo Protegerte?</h2>
+            <ul>
+                <li><i class="fa-solid fa-check-circle"></i> <strong>Activa la Autenticación en 2 Pasos:</strong> Exige un código temporal además de tu contraseña.</li>
+                <li><i class="fa-solid fa-check-circle"></i> <strong>Configura tu Privacidad:</strong> Ajusta tus perfiles para que solo amigos reales vean tus posts.</li>
+                <li><i class="fa-solid fa-check-circle"></i> <strong>Evita el "Oversharing":</strong> No publiques tu ubicación en tiempo real ni documentos oficiales.</li>
+                <li><i class="fa-solid fa-check-circle"></i> <strong>Desconfía de la urgencia:</strong> Nunca compartas códigos que te lleguen por SMS, así te lo pida un "amigo".</li>
+            </ul>
+        </section>
+
+        <section class="card legal">
+            <h2><i class="fa-solid fa-gavel"></i> Consecuencias Legales</h2>
+            <p><strong>Ley Olimpia:</strong> Difundir contenido íntimo sin consentimiento es delito federal (3 a 6 años de prisión).</p>
+            <p><strong>Fraude y Extorsión:</strong> Usar datos para usurpar identidades y engañar tiene sanciones penales severas.</p>
+            <p><strong>Responsabilidad Digital:</strong> Publicar difamaciones o acosar sistemáticamente se castiga como hostigamiento virtual.</p>
+        </section>
+
+        <section class="card real-case">
+            <h2><i class="fa-solid fa-book-open"></i> Caso Real: El Secuestro de WhatsApp</h2>
+            <p>"Un usuario recibe un mensaje de un amigo de confianza (cuya cuenta ya fue hackeada), pidiéndole que le reenvíe un código de 6 dígitos que le llegó por SMS por error. Al entregar ese código, el usuario pierde instantáneamente el acceso a su cuenta. En minutos, los delincuentes escriben a todos sus contactos pidiendo dinero por una supuesta 'emergencia', estafando a sus seres queridos."</p>
+        </section>
+
+        <footer class="footer">
+            <h3>Referencias</h3>
+            <p>Gobierno de la República. (2017). <em>Estrategia Nacional de Ciberseguridad</em>. Presidencia de la República.</p>
+            <p>Prieto, L. A. R. (2021). <em>Robo de datos personales a través de ciberdelitos en Jalisco</em>. ITEI.</p>
+            <p>Quezada, J. P. A. (2014). <em>Seguridad en la información personal</em>. Instituto Belisario Domínguez, Senado de la República.</p>
+            <p>Terán, X. G. (2024). <em>Los riesgos y desafíos de la identidad digital</em>. ITEI.</p>
+            <p>Villa, K. K. S. (2025). <em>Ciberacoso en México, una forma de cibercriminalidad y violencia digital</em>. Universidad de la Policía del Estado de Sinaloa.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
